@@ -1,7 +1,6 @@
 --modulo principal para a execucao do love
 
-local scene, player, tx, ty, n
-local time = 0
+local scene, player
 local Scene = {}
 Scene.__index = Scene
 local Player = {}
@@ -72,8 +71,8 @@ function camera:setScale(sx, sy)
    self.scaleY = sy or self.scaleY
 end
 
-function random_circle(min, max, length)
-   coord = love.math.random(min, max)
+local function random_circle(min, max, length)
+   local coord = love.math.random(min, max)
    while ((coord + length > max) or (coord - length < min)) do
       coord = love.math.random(min, max)
    end
@@ -81,8 +80,8 @@ function random_circle(min, max, length)
 end
 
 function love.load(arg)
-   width = love.graphics.getWidth()
-   height = love.graphics.getHeight()
+   local width = love.graphics.getWidth()
+   local height = love.graphics.getHeight()
    camera.x = -width/2
    camera.y = -height/2
    camera.scaleX = 1
@@ -99,7 +98,7 @@ function love.load(arg)
    p1.max_sp = player.control.max_speed
    p1.fstr = player.field.strength
    p1.raio = 10
-   strongneg = setmetatable(assert(love.filesystem.load("entity/strongneg.lua"))(), Strongneg)
+   local strongneg = setmetatable(assert(love.filesystem.load("entity/strongneg.lua"))(), Strongneg)
    for i = 1, scene[2].n do
       st_neg[i] = {}
       st_neg[i].raio = strongneg.body.size
@@ -107,7 +106,7 @@ function love.load(arg)
       st_neg[i].y = random_circle(-850, 850, strongneg.body.size)
       st_neg[i].fstr = strongneg.field.strength
    end
-   strongpos = setmetatable(assert(love.filesystem.load("entity/strongpos.lua"))(), Strongpos)
+   local strongpos = setmetatable(assert(love.filesystem.load("entity/strongpos.lua"))(), Strongpos)
    for i = 1, scene[3].n do
       st_pos[i] = {}
       st_pos[i].raio = strongneg.body.size
@@ -116,7 +115,7 @@ function love.load(arg)
       st_pos[i].fstr = strongpos.field.strength
       st_pos[i].cstr = strongpos.charge.strength
    end
-   simplepos = setmetatable(assert(love.filesystem.load("entity/simplepos.lua"))(), Simplepos)
+   local simplepos = setmetatable(assert(love.filesystem.load("entity/simplepos.lua"))(), Simplepos)
    for i = 1, scene[4].n do
       sp_pos[i] = {}
       sp_pos[i].raio = 10
@@ -124,7 +123,7 @@ function love.load(arg)
       sp_pos[i].y = random_circle(-850, 850, sp_pos[i].raio)
       sp_pos[i].cstr = simplepos.charge.strength
    end
-   slowpos = setmetatable(assert(love.filesystem.load("entity/slowpos.lua"))(), Slowpos)
+   local slowpos = setmetatable(assert(love.filesystem.load("entity/slowpos.lua"))(), Slowpos)
    for i = 1, scene[5].n do
       sl_pos[i] = {}
       sl_pos[i].raio = slowpos.body.size
@@ -132,7 +131,7 @@ function love.load(arg)
       sl_pos[i].y = random_circle(-850, 850, sl_pos[i].raio)
       sl_pos[i].cstr = slowpos.charge.strength
    end
-   simpleneg = setmetatable(assert(love.filesystem.load("entity/simpleneg.lua"))(), Simpleneg)
+   local simpleneg = setmetatable(assert(love.filesystem.load("entity/simpleneg.lua"))(), Simpleneg)
    for i = 1, scene[6].n do
       sp_neg[i] = {}
       sp_neg[i].raio = 10
@@ -142,16 +141,13 @@ function love.load(arg)
       print(sp_neg[i].y)
       sp_neg[i].cstr = simpleneg.charge.strength
    end
-   large = setmetatable(assert(love.filesystem.load("entity/large.lua"))(), Large)
+   local large = setmetatable(assert(love.filesystem.load("entity/large.lua"))(), Large)
    for i = 1, scene[7].n do
       lrg[i] = {}
       lrg[i].raio = large.body.size
       lrg[i].x = random_circle(-850, 850, lrg[i].raio)
       lrg[i].y = random_circle(-850, 850, lrg[i].raio)
    end
-
-   tx, ty = 0, 0
-
 end
 
 function love.update(dt)
@@ -202,9 +198,9 @@ end
 function love.draw()
    camera:set()
    love.graphics.setColor(1, 1, 1)
-   for i = 1, 7 do 
+   for i = 1, 7 do
       if (scene[i].n > 0) then
-         for j = 1, scene[i].n do 
+         for j = 1, scene[i].n do
             if (scene[i].entity == "player") then
                love.graphics.setColor(0, 0, 1)
                love.graphics.circle("line", p1.x, p1.y, p1.raio)

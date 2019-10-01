@@ -6,10 +6,10 @@
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 -- copies of the Software, and to permit persons to whom the Software is
 -- furnished to do so, subject to the following conditions:
--- 
+--
 -- The above copyright notice and this permission notice shall be included in
 -- all copies or substantial portions of the Software.
--- 
+--
 -- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 -- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 -- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -174,7 +174,7 @@ local function _class(base,c_arg,c)
     end
 
     -- expose a ctor which can be called by <classname>(<args>)
-    mt.__call = function(class_tbl,...)
+    mt.__call = function(...)
         local obj
         if rawget(c,'_create') then obj = c._create(...) end
         if not obj then obj = {} end
@@ -230,10 +230,10 @@ end
 -- @param c optional table to be used as class
 local class
 class = setmetatable({},{
-    __call = function(fun,...)
+    __call = function(...)
         return _class(...)
     end,
-    __index = function(tbl,key)
+    __index = function(key)
         if key == 'class' then
             io.stderr:write('require("pl.class").class is deprecated. Use require("pl.class")\n')
             return class
