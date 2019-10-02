@@ -137,8 +137,6 @@ function love.load(arg)
       sp_neg[i].raio = 10
       sp_neg[i].x = random_circle(-850, 850, sp_neg[i].raio)
       sp_neg[i].y = random_circle(-850, 850, sp_neg[i].raio)
-      print(sp_neg[i].x)
-      print(sp_neg[i].y)
       sp_neg[i].cstr = simpleneg.charge.strength
    end
    local large = setmetatable(assert(love.filesystem.load("entity/large.lua"))(), Large)
