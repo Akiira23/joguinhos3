@@ -47,7 +47,7 @@ local function call_ctor (c,obj,...)
             parent_ctor = rawget(base,'_init')
         end
         if parent_ctor then
-            rawset(obj,'super',function(obj,...)
+            rawset(obj,'super',function(_,...)
                 call_ctor(base,obj,...)
             end)
         end
