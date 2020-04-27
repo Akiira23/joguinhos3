@@ -1,4 +1,4 @@
---modulo principal para a execucao do love
+--modulo principal para a execucao do loveaaaa
 
 local scene, player
 local Scene = {}
